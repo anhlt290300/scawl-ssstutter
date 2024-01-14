@@ -1,7 +1,6 @@
 # scrawl-data-ssstutter (version Tết 2024)
 ## Mô tả dữ liệu
 # Product Card 
-{
     - slug  : string
     - title  : string
     - tag  :  string || null
@@ -9,8 +8,7 @@
     - cost : string || null
     - discount  :  number
     - mark : string
-    - colors  : number
-}
+    - colors  : number 
 # Product (full)
 {
     - slug  : string

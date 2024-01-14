@@ -10,7 +10,6 @@
     - mark : string
     - colors  : number 
 # Product (full)
-{
     - slug  : string
     - title  : string
     - tag  :  string || null
@@ -37,12 +36,4 @@
         },
         ...
     ]
-}
-
-
-
 # suggested products 
-[
-    ProductCard,
-    ...
-]

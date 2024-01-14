@@ -2,7 +2,7 @@ const startBrowser = require("./brower");
 const fs = require("fs");
 const swaggerUi = require("swagger-ui-express");
 const swaggerJSDoc = require("swagger-jsdoc");
-
+const controller = require("./controller/index");
 const express = require("express");
 
 const cors = require("cors");
@@ -40,10 +40,11 @@ app.get("/", async (req, res) => {
   res.status(200).json("Server dang chay");
 });
 
-app.get("/api/all-product", async (req, res) => {
+app.get("/api/all-card-product", async (req, res) => {
   const browser = startBrowser();
-
-  res.json({ message: "Hello!" });
+  const data = await controller.controller_products(browser);
+  res.status(200).json(data);
+  
 });
 
 app.listen(3000, () => {

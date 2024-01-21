@@ -1,23 +1,4 @@
-async function autoScroll(page) {
-  await page.evaluate(async () => {
-    await new Promise((resolve, reject) => {
-      let totalHeight = 0;
-      const distance = 100;
-      const interval = 100;
-
-      const scrollInterval = setInterval(() => {
-        const scrollHeight = document.body.scrollHeight;
-        window.scrollBy(0, distance);
-        totalHeight += distance;
-
-        if (totalHeight >= 5000) {
-          clearInterval(scrollInterval);
-          resolve();
-        }
-      }, interval);
-    });
-  });
-}
+const { autoScroll } = require("../utils");
 
 const scraper_ProductCard = (browser, url) =>
   new Promise(async (res, reject) => {
@@ -28,7 +9,7 @@ const scraper_ProductCard = (browser, url) =>
       );
       await newPage.goto(url);
       console.log("đã vào link " + url);
-
+      await newPage.reload();
       await newPage.waitForSelector("div.xyz-in-to");
       await autoScroll(newPage);
 
@@ -39,7 +20,7 @@ const scraper_ProductCard = (browser, url) =>
             let item = el.querySelector("a");
 
             let slug = item.href;
-            
+
             let mark = item.querySelector(
               ".relative .w-full.h-full.object-cover"
             )?.src;
@@ -58,7 +39,7 @@ const scraper_ProductCard = (browser, url) =>
             )?.innerText;
 
             let cost = item.querySelector(
-              ".py-4 .flex.flex-col.sm\\:flex-row.items-start.sm\\:items-center.justify-between .font-bold.sm\\:text-xl"
+              ".py-4 .flex.flex-col.sm\\:flex-row.items-start.sm\\:items-center.justify-between h4.font-bold"
             )?.innerText;
 
             let price = item.querySelector(
@@ -73,6 +54,7 @@ const scraper_ProductCard = (browser, url) =>
 
             return {
               slug: slug,
+              category: [""],
               title: title,
               tag: tag,
               price: price,

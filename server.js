@@ -30,7 +30,7 @@ const swaggerOptions = {
 
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use("/ssstutter/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use(cors(corsOptions));
 
@@ -44,9 +44,15 @@ app.get("/api/all-card-product", async (req, res) => {
   const browser = startBrowser();
   const data = await controller.controller_products(browser);
   res.status(200).json(data);
-  
+});
+
+app.get("/api/all-product", async (req, res) => {
+  const browser = startBrowser();
+  const data = await controller.controller_product(browser);
+  //await browser.close();
+  res.status(200).json(data);
 });
 
 app.listen(3000, () => {
-  console.log("server listen at http://localhost:3000/api-docs/");
+  console.log("server listen at http://localhost:3000/ssstutter/api-docs/");
 });
